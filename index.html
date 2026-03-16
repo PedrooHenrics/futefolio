@@ -98,7 +98,7 @@
       box-shadow: 0 4px 12px rgba(255, 52, 92, 0.25);
     }
 
-    /* Grid de Produtos */
+    /* Grid de Produtos com Profundidade */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .grid { 
       display: grid; 
@@ -135,11 +135,11 @@
       font-weight: 600; 
       margin: 0; 
       color: var(--text-main);
-      line-height: 1.4; 
-      height: 2.8em; 
-      overflow: hidden; 
+      line-height: 1lh;
+      height: 2.8lh;      
+      overflow: hidden;   
       display: -webkit-box;
-      -webkit-line-clamp: 2; 
+      -webkit-line-clamp: 3; 
       -webkit-box-orient: vertical;
       text-overflow: ellipsis; 
       word-break: break-word; 
@@ -157,7 +157,7 @@
       font-weight: 700; 
     }
 
-    /* Modal */
+    /* Modal Redesenhado */
     .modal { 
       display: none; 
       position: fixed; 
@@ -254,7 +254,7 @@
     }
 
     .btn-page.active { 
-      background: var(--primary); 
+      background: var(--primary);
       color: white; 
       border-color: var(--primary);
       box-shadow: 0 4px 12px rgba(255, 52, 92, 0.2);
@@ -298,7 +298,7 @@
 </div>
 
 <script>
-  // URL DA SUA API (Sua URL do Google que termina em /exec)
+  // CONFIGURAÇÃO DE ACESSO EXTERNO
   const API_URL = 'https://script.google.com/macros/s/AKfycbwb10RnWKWZHB5hiXS6xzeSKPs8dCN9o4hOnkFG8fVmasDpD74sIcGkzOB8GsxhT2zI/exec';
   
   let allProducts = [];
@@ -307,7 +307,7 @@
   let currentSize = 'ALL';
   const itemsPerPage = 30;
 
-  // CORREÇÃO: Função JSONP para funcionar fora do Google Apps Script
+  // FUNÇÃO QUE RECEBE OS DADOS DA API
   function handleResponse(data) {
     allProducts = data.products;
     filteredProducts = data.products;
@@ -323,6 +323,7 @@
     render();
   }
 
+  // CHAMADA INICIAL AO CARREGAR A PÁGINA
   window.onload = () => {
     const script = document.createElement('script');
     script.src = `${API_URL}?callback=handleResponse`;
@@ -343,7 +344,15 @@
     const grid = document.getElementById('product-grid');
     grid.innerHTML = '';
     const start = (currentPage - 1) * itemsPerPage;
-    const paginated = filteredProducts.slice(start, start + itemsPerPage);
+    
+    // REGRA DE PERFORMANCE: ESGOTADOS POR ÚLTIMO
+    const sorted = [...filteredProducts].sort((a, b) => {
+      const stockA = a.totalStock > 0 ? 0 : 1;
+      const stockB = b.totalStock > 0 ? 0 : 1;
+      return stockA - stockB;
+    });
+
+    const paginated = sorted.slice(start, start + itemsPerPage);
 
     paginated.forEach(p => {
       const isSoldOut = p.totalStock <= 0;
