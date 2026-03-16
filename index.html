@@ -188,26 +188,41 @@
   const itemsPerPage = 30;
 
   window.onload = () => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        allProducts = data.products;
-        filteredProducts = data.products;
-        const bar = document.getElementById('filter-bar');
-        data.availableSizes.forEach(s => {
-          const btn = document.createElement('button');
-          btn.className = 'filter-btn';
-          btn.innerText = s;
-          btn.onclick = (e) => filterBySize(s, e.target);
-          bar.appendChild(btn);
-        });
-        document.getElementById('loader').style.display = 'none';
-        render();
-      })
-      .catch(err => {
-        document.getElementById('loader').innerText = 'Erro ao carregar dados. Verifique a API.';
-        console.error(err);
+    console.log("Iniciando conexão com:", API_URL);
+    
+    fetch(API_URL, {
+      method: 'GET',
+      mode: 'cors', // Força a permissão entre domínios
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Resposta da rede não foi ok');
+      return response.json();
+    })
+    .then(data => {
+      console.log("Dados recebidos!", data);
+      allProducts = data.products;
+      filteredProducts = data.products;
+      
+      // Monta os filtros
+      const bar = document.getElementById('filter-bar');
+      data.availableSizes.forEach(s => {
+        const b = document.createElement('button');
+        b.className = 'filter-btn'; b.innerText = s;
+        b.onclick = (e) => filterBySize(s, e.target);
+        bar.appendChild(b);
       });
+      
+      document.getElementById('loader').style.display = 'none';
+      render();
+    })
+    .catch(error => {
+      console.error("Erro detalhado:", error);
+      document.getElementById('loader').innerHTML = `
+        <div style="color: red;">
+          Erro ao conectar com o estoque.<br>
+          <small>${error.message}</small>
+        </div>`;
+    });
   };
 
   function render() {
