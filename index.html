@@ -132,20 +132,25 @@
     }
     .card-img { width: 100%; height: 100%; object-fit: cover; }
     
-.card-title { 
-      padding: 15px; 
-      font-size: 14px; 
-      font-weight: 600; 
-      margin: 0; 
-      color: var(--text-main);
-      line-height: 1.2;
-      height: 2.4em; /* Altura de 2 linhas (1.2 * 2) */
-      display: -webkit-box;
-      -webkit-line-clamp: 2; /* Corta na segunda linha */
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.card-title {
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 15px;
+    color: var(--text-main);
+    
+    /* Ajustes fundamentais */
+    line-height: 1.4; /* Um respiro melhor para leitura */
+    max-height: 2.8em; /* Garante espaço para exatamente 2 linhas (1.4 * 2) */
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita a 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
     .badge-soldout { 
       position: absolute; 
       top: 12px; 
