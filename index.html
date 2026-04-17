@@ -138,12 +138,17 @@
       font-weight: 600; 
       margin: 0; 
       color: var(--text-main);
-
-      /* FORÇA UMA LINHA E CORTE COM RETICÊNCIAS */
-      display: block !important;
-      white-space: nowrap !important;
+      
+      /* CONFIGURAÇÃO PARA DUAS LINHAS COM CORTE */
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important; /* Limita a 2 linhas */
+      -webkit-box-orient: vertical !important;
       overflow: hidden !important;
       text-overflow: ellipsis !important;
+      
+      /* Garante a altura correta e alinhamento */
+      height: 2.8lh !important; /* Mantém a altura de 2 linhas constante */
+      line-height: 1.4 !important;
       width: 100%;
       box-sizing: border-box;
     }
