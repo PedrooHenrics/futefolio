@@ -1,82 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Futefólio - Catálogo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Futefólio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
   <style>
-    :root { 
-      --primary: #ff345c; --bg: #f8f9fa; --card-bg: #ffffff;
-      --text-main: #1a1a1b; --text-sec: #5f6368;
-      --shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; color: var(--text-main); }
-    
-    /* Header */
-    .header { padding: 40px 20px; text-align: center; }
-    .logo { font-size: 42px; font-weight: 800; letter-spacing: -2px; cursor: pointer; margin-bottom: 25px; display: inline-block; }
+    :root { --primary: #ff345c; --bg: #f8f9fa; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; text-align: center; }
+    .header { padding: 30px; }
+    .logo { font-size: 38px; font-weight: 800; margin-bottom: 20px; }
     .logo span { color: var(--primary); }
-    .search-box { width: 100%; max-width: 600px; padding: 15px 25px; border-radius: 50px; border: 1px solid #ddd; outline: none; box-shadow: var(--shadow); font-size: 16px; }
-
-    /* Filtros */
-    .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding: 20px; justify-content: center; scrollbar-width: none; }
-    .filter-btn { padding: 8px 20px; border-radius: 50px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: 600; white-space: nowrap; }
+    .search-box { width: 90%; max-width: 500px; padding: 15px; border-radius: 30px; border: 1px solid #ddd; outline: none; }
+    .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding: 15px; justify-content: center; }
+    .filter-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; }
     .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
-    /* Grid */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-    @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; } }
-
-    .card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: 0.3s; }
-    .card:hover { transform: translateY(-5px); }
-    .card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-    .card-title { padding: 12px; font-size: 13px; font-weight: 600; margin: 0; height: 34px; overflow: hidden; }
-
-    /* Loader */
-    #loader { padding: 100px 0; text-align: center; font-weight: 700; color: var(--text-sec); }
-    .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-    /* Modal */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; backdrop-filter: blur(5px); }
-    .modal-content { background: #fff; width: 95%; max-width: 800px; margin: 5vh auto; border-radius: 20px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; position: relative; }
-    @media (min-width: 768px) { .modal-content { flex-direction: row; } }
-    .close-btn { position: absolute; top: 15px; right: 15px; font-size: 24px; cursor: pointer; z-index: 10; background: #fff; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    
-    .modal-img-side { width: 100%; background: #f9f9f9; }
-    @media (min-width: 768px) { .modal-img-side { width: 50%; } }
-    .modal-details { padding: 25px; flex: 1; overflow-y: auto; }
-    .variant-tag { display: inline-block; padding: 8px 12px; background: #f0f0f0; border-radius: 8px; margin: 4px; font-size: 12px; font-weight: 700; }
-    .soldout { opacity: 0.4; text-decoration: line-through; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 1200px; margin: 0 auto; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
+    .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
+    .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+    .card-title { padding: 10px; font-size: 12px; font-weight: 600; margin: 0; height: 32px; overflow: hidden; }
+    #loader { padding: 100px; font-weight: 800; color: #999; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+    .modal-content { background: #fff; width: 90%; max-width: 500px; margin: 10vh auto; border-radius: 20px; padding: 20px; position: relative; }
+    .close { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; }
+    .tag { display: inline-block; padding: 5px 10px; background: #eee; border-radius: 5px; margin: 3px; font-size: 11px; }
   </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo" onclick="location.reload()">Fute<span>fólio</span></div>
-  <div>
-    <input type="text" id="search" class="search-box" placeholder="O que você busca hoje?" onkeyup="filter()">
-  </div>
+  <div class="logo">Fute<span>fólio</span></div>
+  <input type="text" id="search" class="search-box" placeholder="Buscar produto..." onkeyup="filter()">
   <div class="filter-bar" id="filter-bar">
     <button class="filter-btn active" onclick="filterBySize('ALL', this)">Todos</button>
   </div>
 </div>
 
-<div class="container">
-  <div id="loader">
-    <div class="spinner"></div>
-    CARREGANDO CATÁLOGO...
-  </div>
-  <div class="grid" id="product-grid"></div>
-</div>
+<div id="loader">CARREGANDO ESTOQUE ATUALIZADO...</div>
+<div class="grid" id="product-grid"></div>
 
 <div id="productModal" class="modal" onclick="if(event.target==this)closeModal()">
   <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">×</span>
-    <div id="modal-body" style="display: contents;"></div>
+    <span class="close" onclick="closeModal()">×</span>
+    <div id="modal-body"></div>
   </div>
 </div>
 
@@ -86,51 +53,41 @@
   let filteredProducts = [];
   let currentSize = 'ALL';
 
-  async function loadProducts() {
-    try {
-      // O segredo está aqui: cache 'no-store' força o Vercel/Browser a buscar dados novos
-      const response = await fetch(`${API_URL}?t=${Date.now()}`, {
-        cache: 'no-store',
-        headers: { 'Pragma': 'no-cache' }
-      });
-      const data = await response.json();
-      
-      allProducts = data.products;
-      filteredProducts = data.products;
+  // ESTA FUNÇÃO É CHAMADA AUTOMATICAMENTE PELO GOOGLE
+  function handleResponse(data) {
+    allProducts = data.products;
+    filteredProducts = data.products;
+    
+    const bar = document.getElementById('filter-bar');
+    data.availableSizes.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.innerText = s;
+      btn.onclick = (e) => filterBySize(s, e.target);
+      bar.appendChild(btn);
+    });
 
-      // Criar botões de tamanhos
-      const bar = document.getElementById('filter-bar');
-      data.availableSizes.forEach(s => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.innerText = s;
-        btn.onclick = (e) => filterBySize(s, e.target);
-        bar.appendChild(btn);
-      });
-
-      document.getElementById('loader').style.display = 'none';
-      render();
-    } catch (e) {
-      document.getElementById('loader').innerHTML = "Erro ao carregar catálogo. Verifique sua conexão.";
-    }
+    document.getElementById('loader').style.display = 'none';
+    render();
   }
+
+  // GERA O SCRIPT COM DATA ATUAL PARA FORÇAR ATUALIZAÇÃO
+  window.onload = () => {
+    const script = document.createElement('script');
+    script.src = `${API_URL}?callback=handleResponse&nocache=${Date.now()}`;
+    document.body.appendChild(script);
+  };
 
   function render() {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = '';
-    
-    // Produtos com estoque aparecem primeiro
     const sorted = [...filteredProducts].sort((a,b) => (b.totalStock > 0) - (a.totalStock > 0));
-
     sorted.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.onclick = () => openModal(p);
-      card.innerHTML = `
-        <img src="${p.mainImage}" class="card-img" style="${p.totalStock <= 0 ? 'opacity:0.5' : ''}">
-        <p class="card-title">${p.name}</p>
-      `;
-      grid.appendChild(card);
+      grid.innerHTML += `
+        <div class="card" onclick="openModal('${p.id}')">
+          <img src="${p.mainImage}" style="${p.totalStock <= 0 ? 'opacity:0.4' : ''}">
+          <p class="card-title">${p.name}</p>
+        </div>`;
     });
   }
 
@@ -153,35 +110,20 @@
     filter();
   }
 
-  function openModal(p) {
+  function openModal(id) {
+    const p = allProducts.find(x => x.id == id);
     const body = document.getElementById('modal-body');
     body.innerHTML = `
-      <div class="modal-img-side">
-        <img src="${p.mainImage}" style="width:100%; aspect-ratio:1/1; object-fit:cover;">
-      </div>
-      <div class="modal-details">
-        <h2 style="margin-top:0">${p.name}</h2>
-        <p style="color:var(--primary); font-weight:800; font-size:12px; text-transform:uppercase">Estoque por Tamanho:</p>
-        <div>
-          ${p.variants.map(v => `
-            <div class="variant-tag ${v.stock <= 0 ? 'soldout' : ''}">
-              ${v.name}: ${v.stock > 0 ? v.stock + ' un' : 'Esgotado'}
-            </div>
-          `).join('')}
-        </div>
+      <img src="${p.mainImage}" style="width:100%; border-radius:10px;">
+      <h3>${p.name}</h3>
+      <div style="text-align:left">
+        ${p.variants.map(v => `<div class="tag" style="${v.stock <= 0 ? 'opacity:0.3' : 'font-weight:bold'}">${v.name}: ${v.stock} un</div>`).join('')}
       </div>
     `;
     document.getElementById('productModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
   }
 
-  function closeModal() {
-    document.getElementById('productModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
-
-  // Iniciar
-  loadProducts();
+  function closeModal() { document.getElementById('productModal').style.display = 'none'; }
 </script>
 </body>
 </html>
